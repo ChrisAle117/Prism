@@ -132,75 +132,49 @@
             padding-top: 100px;
         }
 
-        .prism-3d-container {
-            width: 280px;
-            height: 280px;
-            perspective: 1200px;
-            margin-bottom: 80px;
+        /* Prisma 3D de Sketchfab */
+        .sketchfab-embed-wrapper {
+            margin: 0 auto 60px;
+            width: 500px;
+            height: 500px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 60px rgba(0, 255, 255, 0.4),
+                0 0 100px rgba(255, 0, 255, 0.3),
+                inset 0 0 50px rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.03),
+                rgba(0, 255, 255, 0.05));
+            animation: prismGlow 4s infinite ease-in-out;
         }
-        .prism-3d {
+        
+        @keyframes prismGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 60px rgba(0, 255, 255, 0.4),
+                    0 0 100px rgba(255, 0, 255, 0.3),
+                    inset 0 0 50px rgba(255, 255, 255, 0.05);
+            }
+            50% {
+                box-shadow: 
+                    0 0 80px rgba(0, 255, 255, 0.6),
+                    0 0 120px rgba(255, 0, 255, 0.5),
+                    inset 0 0 60px rgba(255, 255, 255, 0.1);
+            }
+        }
+        
+        .sketchfab-embed-wrapper iframe {
             width: 100%;
             height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: prismSpin 18s linear infinite;
+            border: none;
         }
-        @keyframes prismSpin {
-            from {
-                transform: rotateX(20deg) rotateY(0deg);
-            }
-            to {
-                transform: rotateX(20deg) rotateY(360deg);
-            }
-        }
-        .prism-face {
-            position: absolute;
-            width: 160px;
-            height: 220px;
-            left: 50%;
-            top: 50%;
-            transform-origin: center center;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            background: linear-gradient(
-                135deg,
-                rgba(0,255,255,0.35),
-                rgba(255,0,255,0.35),
-                rgba(255,255,0,0.35)
-            );
-            border: 1px solid rgba(255,255,255,0.45);
-            backdrop-filter: blur(20px);
-            box-shadow:
-                0 0 50px rgba(0,255,255,0.35),
-                inset 0 0 30px rgba(255,255,255,0.15);
-        }
-        .face-1 {
-            transform: translate(-50%, -50%) rotateY(0deg) translateZ(90px);
-        }
-        .face-2 {
-            transform: translate(-50%, -50%) rotateY(120deg) translateZ(90px);
-        }
-        .face-3 {
-            transform: translate(-50%, -50%) rotateY(240deg) translateZ(90px);
-        }
-        .prism-cap {
-            position: absolute;
-            width: 160px;
-            height: 160px;
-            left: 50%;
-            top: 50%;
-            background: radial-gradient(circle,
-                rgba(255,255,255,0.7),
-                rgba(0,255,255,0.3),
-                transparent
-            );
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            transform-origin: center;
-        }
-        .prism-cap.top {
-            transform: translate(-50%, -140px) rotateX(90deg);
-        }
-        .prism-cap.bottom {
-            transform: translate(-50%, 60px) rotateX(-90deg);
+        
+        .sketchfab-embed-wrapper p {
+            display: none;
         }
 
         /* Light beams from prism */
@@ -826,14 +800,20 @@
     <div class="content-wrapper">
         <!-- Hero Section -->
         <section class="hero-section">
-            <div class="prism-3d-container">
-                <div class="prism-3d">
-                    <div class="prism-face face-1"></div>
-                    <div class="prism-face face-2"></div>
-                    <div class="prism-face face-3"></div>
-                    <div class="prism-cap top"></div>
-                    <div class="prism-cap bottom"></div>
-                </div>
+            <div class="sketchfab-embed-wrapper">
+                <iframe 
+                    title="Last Prism fanart from terraria" 
+                    frameborder="0" 
+                    allowfullscreen 
+                    mozallowfullscreen="true" 
+                    webkitallowfullscreen="true" 
+                    allow="autoplay; fullscreen; xr-spatial-tracking" 
+                    xr-spatial-tracking 
+                    execution-while-out-of-viewport 
+                    execution-while-not-rendered 
+                    web-share 
+                    src="https://sketchfab.com/models/85db88c9d8624bc58837058eea85aef5/embed?autostart=1&preload=1&ui_animations=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_hint=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0">
+                </iframe>
             </div>
             <h1 class="hero-title">PRISM</h1>
             <p class="hero-subtitle">Ideas que cobran forma.</p>
@@ -894,7 +874,7 @@
                             type="text" 
                             id="name" 
                             class="form-input"
-                            placeholder="Tu nombre completo"
+                            placeholder="Ingresa tu nombre completo"
                             required
                         >
                     </div>
@@ -905,7 +885,7 @@
                             type="email" 
                             id="email" 
                             class="form-input"
-                            placeholder="tu@email.com"
+                            placeholder="correo@gmail.com"
                             required
                         >
                     </div>
@@ -1070,13 +1050,13 @@
             }, 1500);
         });
         
-        // Smooth parallax on scroll
+        // Smooth glow effect on scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const prism = document.querySelector('.prism-3d');
-            if (prism) {
-                const rotation = scrolled * 0.3;
-                prism.style.transform = `rotateX(20deg) rotateY(${rotation}deg)`;
+            const sketchfab = document.querySelector('.sketchfab-embed-wrapper');
+            if (sketchfab && scrolled < 500) {
+                const intensity = 1 + (scrolled / 500) * 0.5;
+                sketchfab.style.transform = `scale(${Math.min(intensity, 1.2)})`;
             }
         });
     </script>
